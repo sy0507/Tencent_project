@@ -1,23 +1,48 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+<!--    <img src="./assets/logo.png">-->
+    <clip-image @saveImage="saveImage" v-if="!isSave"></clip-image>
+    <div class="resultBox" @click="change" v-else>
+      <img :src="data" alt />
+    </div>
   </div>
 </template>
 
 <script>
+import ClipImage from "./components/ClipImage.vue";
 export default {
-  name: 'App'
-}
+  name: 'App',
+  data() {
+    return {
+      isSave: false,
+      data: ""
+    };
+  },
+  components: {
+    ClipImage
+  },
+  methods: {
+    saveImage(payload) {
+      this.isSave = true;
+      this.data = payload;
+    },
+    change() {
+      this.isSave = false;
+    }
+  }
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less">
+.resultBox {
+  padding: 0.2rem;
+}
+
+.resultBox img {
+  display: block;
+  box-sizing: border-box;
+  width: 7.1rem;
+  height: 7.1rem;
+  border: 0.02rem solid #ddd;
 }
 </style>
