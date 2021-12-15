@@ -1,10 +1,13 @@
 <template>
   <div class="clipImageBox">
-    <div class="canvasBox">
+    <div class="canvasBox" @touchstart="startFunc" @touchmove="moveFunc">
 <!--      <canvas class="canvasBox"></canvas>-->
       <canvas :width="CW" :height="CH" ref="canvas"></canvas>
-      <div class="mark" v-show="isMark" :style="{width:MW+'px',height:MH+'px',left:ML+'px',top:MT+'px'}"></div>
+      <div class="mark" v-show="isMark" :style="{width:MW+'px',height:MH+'px',left:ML+'px',top:MT+'px'}">
+
+      </div>
     </div>
+
     <div class="buttonBox">
       <input type="file" accept="image/*" class="file" ref="file"
              @change="changeFunc"/>
@@ -82,7 +85,7 @@ export default {
           this.IT=(this.CH-this.IH)/2;
 
           console.log(this.IL);
-          this.drawImage_cav();
+          this.drawImage();
         };
       };
 
@@ -99,7 +102,7 @@ export default {
         this.IW -= n1;
         this.IH -= n2;
       }
-      this.drawImage_cav();
+      this.drawImage();
     },
     startFunc(ev) {
       if (!this.IMAGE) return;
@@ -116,7 +119,7 @@ export default {
       if (Math.abs(this.changeX) > 10 || Math.abs(this.changeY) > 10) {
         this.IL += this.changeX;
         this.IT += this.changeY;
-        this.drawImage_cav();
+        this.drawImage();
         this.startX = point.clientX;
         this.startY = point.clientY;
       }
@@ -135,8 +138,9 @@ export default {
       // 把画布中的内容生成图片的BASE64
       this.$emit("saveImage", canvas2.toDataURL("image/png"));
     },
+    
 
-    drawImage_cav(){
+    drawImage(){
       this.CTX=this.$refs.canvas.getContext('2d');
       // console.log(this.CTX);
       this.CTX.clearRect(0,0,this.CW,this.CH);

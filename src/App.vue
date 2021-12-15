@@ -1,15 +1,21 @@
 <template>
   <div id="app">
 <!--    <img src="./assets/logo.png">-->
-    <clip-image @saveImage="saveImage" v-if="!isSave"></clip-image>
-    <div class="resultBox" @click="change" v-else>
-      <img :src="data" alt />
-    </div>
+<!--    <clip-image @saveImage="saveImage" v-if="!isSave"></clip-image>-->
+<!--&lt;!&ndash;    <router-view></router-view>&ndash;&gt;-->
+<!--    <div class="resultBox" @click="change" v-else>-->
+<!--      <img :src="data" alt />-->
+<!--    </div>-->
+<!--    <router-link to="/image">test</router-link>-->
+    <router-view></router-view>
   </div>
+
 </template>
 
 <script>
 import ClipImage from "./components/ClipImage.vue";
+// import "./assets/reset.min.css";
+// import "./assets/basic.less";
 export default {
   name: 'App',
   data() {
